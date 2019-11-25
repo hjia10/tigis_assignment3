@@ -1,4 +1,4 @@
-from web_visual_db.routes import app
+from web_visual_db import db, drawSVG, routes
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    routes.app.run(debug=True)
