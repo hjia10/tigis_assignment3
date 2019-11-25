@@ -1,9 +1,9 @@
 from flask import Flask, render_template
+from web_visual_db import db, drawSVG
 
 app = Flask(__name__)
 
-data = ['rob', 'webster', 37]
-
+data = db.getDBdata('*', 'ancient_castles')
 
 @app.route("/")
 def home():
