@@ -7,14 +7,19 @@ Content-Type: text/html
     <title>Oracle Database Visualiser</title>
   </head>
   <body>
-    <p>Hello {{data[0]}} </p>
+    <p>Hello {{info}} </p>
     <p>
-      {% for row in data %}
-          <li>row[0]</li>
+      {% for row in fields %}
+        {% for item in row.show_info() %}
+            <li>{{item}}</li>
+        {% endfor %}
+        <p></p>
+        <p>{{row.draw_svg_rectangle()}}</p>
+        <p></p>
       {% endfor %}
     </p>
-    <p>{{data[1]}}</p>
-    <p>{{data[2]}}</p>
+    <p>{{fields[1].show_info()}}</p>
+    <p>{{finds[1].show_info()}}</p>
 
   </body>
 </html>
