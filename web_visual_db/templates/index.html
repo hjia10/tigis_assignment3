@@ -1,5 +1,3 @@
-Content-Type: text/html
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -7,19 +5,26 @@ Content-Type: text/html
     <title>Oracle Database Visualiser</title>
   </head>
   <body>
-    <p>Hello {{info}} </p>
-    <p>
-      {% for row in fields %}
-        {% for item in row.show_info() %}
-            <li>{{item}}</li>
-        {% endfor %}
+    <p>Hello {{info}}</p>
+    <h2>Fields Info</h2>
+      {% for field in fields %}
+            <li>{{field}}</li>
         <p></p>
-        <p>{{row.draw_svg_rectangle()}}</p>
+        <p>{{field.draw_svg_rectangle()}}</p>
         <p></p>
       {% endfor %}
-    </p>
-    <p>{{fields[1].show_info()}}</p>
-    <p>{{finds[1].show_info()}}</p>
 
+    <h2>Finds Info</h2>
+        {% for part in finds %}
+            <li>{{part}}</li>
+        <p></p>
+        <p>{{part.draw_svg_circle()}}</p>
+        <p></p>
+      {% endfor %}
+    <h2> SVG Section </h2>
+    {{svg_setup}}
+       {% block svg %}
+       {% endblock %}
+    <p></p>
   </body>
 </html>

@@ -12,6 +12,12 @@ class Field:
         self.width = hix - lowx
         self.height = hiy - lowy
 
+    def __repr__(self):
+        return f"Field({self.field_id}, {self.lowx}, {self.lowy}, {self.hix}, {self.hiy})"
+
+    def __str__(self):
+        return f"Field {self.field_id} - Bottom Left ({self.lowx}, {self.lowy}) Top Right ({self.hix}, {self.hiy})"
+
     def show_info(self):
         info=[]
         info.append(f'Field ID : {str(self.field_id)}')
@@ -38,9 +44,15 @@ class Find:
         self.xcoord = xcoord
         self.ycoord = ycoord
 
+    def __repr__(self):
+        return f"Find({self.find_id}, {self.xcoord}, {self.ycoord})"
+
+    def __str__(self):
+        return f"Find {self.find_id} - Coordinates : ({self.xcoord}, {self.ycoord})"
+
     def show_info(self):
         print('Find ID : ' + str(self.find_id))
-        print('Co-ordinates : (' + str(self.xcoord) + ',' + str(self.ycoord) + ')')
+        print(f'co-ordinates : ({str(self.xcoord)},{str(self.ycoord)})')
 
     def draw_svg_circle(self):
         svg_type = "circle"
@@ -52,7 +64,8 @@ class Find:
 
 
 def print_svg(width, height, viewbox):
-    print(f'<svg width="{width}" height="{height}" viewBox="{viewbox}">')
+    return f'<svg width="{width}" height="{height}" viewBox="{viewbox}">'
+
 
 
 def getDBdata(select_term, table_name):
@@ -85,7 +98,4 @@ def getDBdata(select_term, table_name):
 
     conn.close()
     return results
-
-
-
 
