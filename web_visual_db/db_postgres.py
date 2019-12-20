@@ -11,6 +11,9 @@ class Field:
         self.hiy = hiy
         self.width = hix - lowx
         self.height = hiy - lowy
+        self.centroidx = (hix - lowx)/2 + lowx
+        self.centroidy = (hiy - lowy)/2 + lowy
+
 
     def __repr__(self):
         return f"Field({self.field_id}, {self.lowx}, {self.lowy}, {self.hix}, {self.hiy})"

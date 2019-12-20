@@ -5,26 +5,27 @@
     <title>Oracle Database Visualiser</title>
   </head>
   <body>
-    <p>Hello {{info}}</p>
-    <h2>Fields Info</h2>
-      {% for field in fields %}
-            <li>{{field}}</li>
-        <p></p>
-        <p>{{field.draw_svg_rectangle()}}</p>
-        <p></p>
-      {% endfor %}
 
-    <h2>Finds Info</h2>
-        {% for part in finds %}
-            <li>{{part}}</li>
-        <p></p>
-        <p>{{part.draw_svg_circle()}}</p>
-        <p></p>
-      {% endfor %}
-    <h2> SVG Section </h2>
-    {{svg_setup}}
-       {% block svg %}
-       {% endblock %}
-    <p></p>
+    <h2> Fields & Finds </h2>
+
+        <svg width="{{ g.width }}" height="{{ g.height }}" viewBox="{{ g.viewBox_custom }}">
+            <g transform="scale(1,-1) translate(0, -{{ g.viewBox_height }})">
+                {% for field in fields %}
+                    <rect x="{{ field.lowx }}" y="{{ field.lowy }}" width="{{ field.width }}" height="{{ field.height }}" fill="none" stroke="black" stroke-width="0.04"/>
+                {% endfor %}
+                {% for find in finds %}
+                    <circle cx = "{{ find.xcoord }}" cy="{{ find.ycoord }}" r="0.3" fill="green"/>
+                {% endfor %}
+            </g>
+            <g>
+                {% for field in fields %}
+                    <text transform="translate(-0.2, 0)" x="{{field.centroidx}}" y="{{g.viewBox_height-field.centroidy}}" font-family="Verdana" font-size="0.5" fill="black">{{field.field_id}}</text>
+                {% endfor %}
+                {% for find in finds %}
+                    <text transform="translate(-0.15, 0.2)" x="{{find.xcoord}}" y="{{g.viewBox_height-find.ycoord}}" font-family="Verdana" font-size="0.5" fill="white">{{find.find_id}}</text>
+                {% endfor %}
+            </g>
+        </svg>
+
   </body>
 </html>

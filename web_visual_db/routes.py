@@ -8,21 +8,31 @@ author = "Rob"
 field_objects = db_postgres.getDBdata('field_id, lowx, lowy, hix, hiy', 'fields')
 find_objects = db_postgres.getDBdata('find_id, x_coord, y_coord', 'finds')
 
-svg_width = '10cm'
-svg_height = '10cm'
-viewBox = "0 0 16 16"
-svg_setup = db_postgres.print_svg(svg_width, svg_height, viewBox)
-print(f'SVG Setup Phrase - {svg_setup}')
 
-for field in field_objects:
-    field.show_info()
-    field.draw_svg_rectangle()
+class graphicsArea:
 
-for find in find_objects:
-    find.show_info()
-    find.draw_svg_circle()
+    def __init__(self, width, height, viewBox_x, viewBox_y, viewBox_width, viewBox_height):
+        self.width = f"{width}cm"
+        self.height = f"{height}cm"
+        self.viewBox_x = viewBox_x
+        self.viewBox_y = viewBox_y
+        self.viewBox_width = viewBox_width
+        self.viewBox_height = viewBox_height
+        self.viewBox_custom = f"{viewBox_x} {viewBox_y} {viewBox_width} {viewBox_height}"
 
+
+def print_all_info():
+    for field in field_objects:
+        field.show_info()
+        field.draw_svg_rectangle()
+
+    for find in find_objects:
+        find.show_info()
+        find.draw_svg_circle()
+
+
+box = graphicsArea(15, 15, 0, 0, 16, 16)
 
 @app.route("/")
 def home():
-    return render_template('index.html', info=author, fields=field_objects, finds=find_objects, svg_setup=svg_setup)
+    return render_template('index.html', info=author, fields=field_objects, finds=find_objects, g=box)
