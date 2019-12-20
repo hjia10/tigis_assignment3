@@ -70,7 +70,6 @@ def print_svg(width, height, viewbox):
     return f'<svg width="{width}" height="{height}" viewBox="{viewbox}">'
 
 
-
 def getDBdata(select_term, table_name):
     results = []
     conn = psycopg2.connect(host="localhost", database="tigis", user="robwebster", password="1emedente0486", port=5431)

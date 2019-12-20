@@ -9,7 +9,7 @@ field_objects = db_postgres.getDBdata('field_id, lowx, lowy, hix, hiy', 'fields'
 find_objects = db_postgres.getDBdata('find_id, x_coord, y_coord', 'finds')
 
 
-class graphicsArea:
+class GraphicsArea:
 
     def __init__(self, width, height, viewBox_x, viewBox_y, viewBox_width, viewBox_height):
         self.width = f"{width}cm"
@@ -31,8 +31,10 @@ def print_all_info():
         find.draw_svg_circle()
 
 
-box = graphicsArea(15, 15, 0, 0, 16, 16)
+print_all_info()
+graphics_area_for_svg = GraphicsArea(15, 15, 0, 0, 16, 16)
+
 
 @app.route("/")
 def home():
-    return render_template('index.html', info=author, fields=field_objects, finds=find_objects, g=box)
+    return render_template('index.html', info=author, fields=field_objects, finds=find_objects, g=graphics_area_for_svg)
