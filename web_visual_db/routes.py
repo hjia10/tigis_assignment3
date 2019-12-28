@@ -5,8 +5,30 @@ app = Flask(__name__)
 
 author = "Rob"
 
-field_objects = db_postgres.getDBdata('field_id, lowx, lowy, hix, hiy', 'fields')
-find_objects = db_postgres.getDBdata('find_id, x_coord, y_coord', 'finds')
+my_classes = db_postgres.getDBdata('"TYPE", "NAME", "PERIOD", "USE"', '"MY_CLASS"')
+my_crops = db_postgres.getDBdata('"CROP", "NAME", "STARTSEASON", "ENDSEASON"', '"MY_CROPS"')
+
+field_objects = db_postgres.getDBdata('"FIELD_ID", "LOWX", "LOWY", "HIX", "HIY", "AREA", "OWNER", "CROP"', '"MY_FIELDS"')
+find_objects = db_postgres.getDBdata('"FIND_ID", "XCOORD", "YCOORD", "TYPE", "DEPTH", "FIELD_NOTES"', '"MY_FINDS"')
+
+for field in field_objects:
+    for crop in my_crops:
+        if field.crop_id == crop.crop:
+            field.fill = db_postgres.get_field_colour(crop.name)
+        else:
+            continue
+
+for find in find_objects:
+    for cls in my_classes:
+        if find.find_type == cls.class_type:
+            print('match...')
+            print(find.find_type)
+            print(cls.class_type)
+            find.fill = db_postgres.get_find_colour(cls.class_type)
+            print(find.fill)
+        else:
+            continue
+
 
 
 class GraphicsArea:
@@ -31,10 +53,11 @@ def print_all_info():
         find.draw_svg_circle()
 
 
-print_all_info()
+#print_all_info()
 graphics_area_for_svg = GraphicsArea(15, 15, 0, 0, 16, 16)
 
 
 @app.route("/")
 def home():
-    return render_template('index.html', info=author, fields=field_objects, finds=find_objects, g=graphics_area_for_svg)
+    return render_template('index.html', info=author, fields=field_objects, finds=find_objects, classes=my_classes,
+                           crops=my_crops, g=graphics_area_for_svg)

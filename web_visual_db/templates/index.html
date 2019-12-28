@@ -2,30 +2,40 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+      <link rel="stylesheet" href="../static/style.css">
+      <script src="../static/main.js"></script>
     <title>Oracle Database Visualiser</title>
   </head>
   <body>
 
-    <h2> Fields & Finds </h2>
-
-        <svg width="{{ g.width }}" height="{{ g.height }}" viewBox="{{ g.viewBox_custom }}">
-            <g transform="scale(1,-1) translate(0, -{{ g.viewBox_height }})">
+    <h1 id="main_title"> Fields & Finds </h1>
+        <svg id="svg_area" width="{{ g.width }}" height="{{ g.height }}" viewBox="{{ g.viewBox_custom }}">
+            <g id="draw_svg" transform="scale(1,-1) translate(0, -{{ g.viewBox_height }})">
                 {% for field in fields %}
-                    <rect x="{{ field.lowx }}" y="{{ field.lowy }}" width="{{ field.width }}" height="{{ field.height }}" fill="none" stroke="black" stroke-width="0.04"/>
+                    <rect id="field{{ field.field_id }}" class="fields" x="{{ field.lowx }}" y="{{ field.lowy }}" width="{{ field.width }}" height="{{ field.height }}" fill="{{field.fill}}" stroke="black" stroke-width="0.04"/>
                 {% endfor %}
                 {% for find in finds %}
-                    <circle cx = "{{ find.xcoord }}" cy="{{ find.ycoord }}" r="0.3" fill="green"/>
+                    <circle id="find{{ find.find_id }}" class="finds" cx = "{{ find.xcoord }}" cy="{{ find.ycoord }}" r="0.3" fill="{{find.fill}}"/>
                 {% endfor %}
             </g>
-            <g>
+            <g id="text_numbers">
                 {% for field in fields %}
-                    <text transform="translate(-0.2, 0)" x="{{field.centroidx}}" y="{{g.viewBox_height-field.centroidy}}" font-family="Verdana" font-size="0.5" fill="black">{{field.field_id}}</text>
+                    <text id="text_field{{field.field_id}}" class="field_number" transform="translate(-0.2, 0)" x="{{field.centroidx}}" y="{{g.viewBox_height-field.centroidy}}" font-family="Verdana" font-size="0.5" fill="black">{{field.field_id}}</text>
                 {% endfor %}
                 {% for find in finds %}
-                    <text transform="translate(-0.15, 0.2)" x="{{find.xcoord}}" y="{{g.viewBox_height-find.ycoord}}" font-family="Verdana" font-size="0.5" fill="white">{{find.find_id}}</text>
+                    <text id="text_find{{find.find_id}}" class="find_number" transform="translate(-0.15, 0.2)" x="{{find.xcoord}}" y="{{g.viewBox_height-find.ycoord}}" font-family="Verdana" font-size="0.5" fill="white">{{find.find_id}}</text>
                 {% endfor %}
             </g>
         </svg>
+
+    <script>
+        {% for field in fields %}
+            const field{{field.field_id}} = document.getElementById('{{field.field_id}}');
+            console.log('field{{field.field_id}} = ', field{{field.field_id}});
+        {% endfor %}
+        let coloursList = ['red', 'green', 'blue', 'orange']
+        changeColour('main_title', coloursList[0])
+    </script>
 
   </body>
 </html>

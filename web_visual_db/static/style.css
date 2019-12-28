@@ -1,0 +1,33 @@
+*{
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height 100vh;
+    color: black;
+}
+
+h1 {
+    margin-bottom: 3rem;
+}
+
+.fields{
+    background-color: grey;
+}
+
+.finds {
+    background-colour: orange;
+}
+
+#main_title {
+    font-size: 4rem;
+    color: blue;
+}
+
