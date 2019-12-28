@@ -19,15 +19,10 @@ h1 {
 }
 
 .fields{
-    background-color: grey;
+    stroke-width: 0.02;
 }
 
 .finds {
-    background-colour: orange;
+    stroke: black;
+    stroke-width: 0.02;
 }
-
-#main_title {
-    font-size: 4rem;
-    color: blue;
-}
-

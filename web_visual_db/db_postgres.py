@@ -1,9 +1,23 @@
 import psycopg2
 
 
+class GraphicsArea:
+
+    def __init__(self, width, height, viewBox_x, viewBox_y, viewBox_width, viewBox_height):
+        self.width = f"{width}cm"
+        self.height = f"{height}cm"
+        self.viewBox_x = viewBox_x
+        self.viewBox_y = viewBox_y
+        self.viewBox_width = viewBox_width
+        self.viewBox_height = viewBox_height
+        self.viewBox_custom = f"{viewBox_x} {viewBox_y} {viewBox_width} {viewBox_height}"
+
+
 class Field:
 
     def __init__(self, field_id, lowx, lowy, hix, hiy, area, owner, crop_id):
+
+        # Parameters passed in during creation (ie fetched from database)
         self.field_id = field_id
         self.lowx = lowx
         self.lowy = lowy
@@ -13,11 +27,13 @@ class Field:
         self.owner = owner
         self.crop_id = crop_id
 
+        #  Attributes calculated from object properties
         self.width = hix - lowx
         self.height = hiy - lowy
         self.centroidx = (hix - lowx)/2 + lowx
         self.centroidy = (hiy - lowy)/2 + lowy
 
+        # Default value for fill is 'none'.  This property is dynamically added at runtime
         self.fill = 'none'
 
     def __repr__(self):
@@ -76,7 +92,7 @@ class Find:
         return svg_string
 
 
-class myClass:
+class MyClass:
 
     def __init__(self, class_type, name, period, use):
         self.class_type = class_type
@@ -168,7 +184,7 @@ def getDBdata(select_term, table_name):
         classes_list = []
         for row in c:
             (a, b, c, d) = row
-            my_class = myClass(a, b, c, d)
+            my_class = MyClass(a, b, c, d)
             classes_list.append(my_class)
             results = classes_list
 
@@ -185,3 +201,20 @@ def getDBdata(select_term, table_name):
     conn.close()
     return results
 
+
+def assign_field_colours(fields, crops):
+    for field in fields:
+        for crop in crops:
+            if field.crop_id == crop.crop:
+                field.fill = get_field_colour(crop.name)
+            else:
+                continue
+
+
+def assign_find_colours(finds, classes):
+    for find in finds:
+        for cls in classes:
+            if find.find_type == cls.class_type:
+                find.fill = get_find_colour(cls.class_type)
+            else:
+                continue

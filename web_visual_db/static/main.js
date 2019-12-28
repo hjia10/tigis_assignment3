@@ -5,10 +5,10 @@
 function changeColour(identifier, colour) {
     bit = document.getElementById(identifier)
     bit.style.color = colour
-
 }
 
-function hoverChange(colour) {
+$('#field1').on("click", function() {
+    $('#field1').css.stroke = blue;
+    $('#field1').css.fill = blue;
 
-
-}
+});
