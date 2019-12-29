@@ -154,11 +154,11 @@ def print_svg(width, height, viewbox):
     return f'<svg width="{width}" height="{height}" viewBox="{viewbox}">'
 
 
-def getDBdata(select_term, table_name):
+def getDBdata(select_term, table_name, order_column):
     results = []
     conn = psycopg2.connect(host="localhost", database="tigis", user="robwebster", password="1emedente0486", port=5431)
     c = conn.cursor()
-    c.execute(f"SELECT {select_term} FROM {table_name}")
+    c.execute(f"SELECT {select_term} FROM {table_name} ORDER BY {order_column}")
 
     if table_name == '"MY_FIELDS"':
         fields_list = []

@@ -5,11 +5,11 @@ app = Flask(__name__)
 
 author = "Rob"
 
-my_classes = db_postgres.getDBdata('"TYPE", "NAME", "PERIOD", "USE"', '"MY_CLASS"')
-my_crops = db_postgres.getDBdata('"CROP", "NAME", "STARTSEASON", "ENDSEASON"', '"MY_CROPS"')
+my_classes = db_postgres.getDBdata('"TYPE", "NAME", "PERIOD", "USE"', '"MY_CLASS"', '"TYPE"')
+my_crops = db_postgres.getDBdata('"CROP", "NAME", "STARTSEASON", "ENDSEASON"', '"MY_CROPS"', '"CROP"')
 
-field_objects = db_postgres.getDBdata('"FIELD_ID", "LOWX", "LOWY", "HIX", "HIY", "AREA", "OWNER", "CROP"', '"MY_FIELDS"')
-find_objects = db_postgres.getDBdata('"FIND_ID", "XCOORD", "YCOORD", "TYPE", "DEPTH", "FIELD_NOTES"', '"MY_FINDS"')
+field_objects = db_postgres.getDBdata('"FIELD_ID", "LOWX", "LOWY", "HIX", "HIY", "AREA", "OWNER", "CROP"', '"MY_FIELDS"', '"FIELD_ID"')
+find_objects = db_postgres.getDBdata('"FIND_ID", "XCOORD", "YCOORD", "TYPE", "DEPTH", "FIELD_NOTES"', '"MY_FINDS"', '"FIND_ID"')
 
 db_postgres.assign_field_colours(field_objects, my_crops)
 db_postgres.assign_find_colours(find_objects, my_classes)

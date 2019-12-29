@@ -11,18 +11,39 @@ body {
     justify-content: center;
     text-align: center;
     height 100vh;
-    color: black;
 }
 
 h1 {
     margin-bottom: 3rem;
+    color: red;
 }
 
-.fields{
-    stroke-width: 0.02;
+.left-column {
+    width: 50%
+    float: left;
 }
 
-.finds {
+.right-column {
+    width: 50%
+    float: right;
+}
+
+.find {
     stroke: black;
     stroke-width: 0.02;
+}
+
+.find_selected {
+    stroke: red;
+    stroke-width: 0.08;
+}
+
+.field {
+    stroke-width: 0.04;
+    stroke: black;
+}
+
+.field_selected {
+    stroke-width: 0.08;
+    stroke: blue;
 }
