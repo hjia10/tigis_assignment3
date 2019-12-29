@@ -1,53 +1,65 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="../static/style.css">
       <script src="../static/jquery-3.4.1.js"></script>
-    <title>Oracle Database Visualiser</title>
+      <title>Database Visualiser</title>
   </head>
   <body>
-    <h1 onmouseover="modifyText(this)" id="main_title"> Fields & Finds </h1>
-    <div class="svg_map left-column">
-        <svg width="{{ g.width }}" height="{{ g.height }}" viewBox="{{ g.viewBox_custom }}">
-            <g id="draw_svg" transform="scale(1,-1) translate(0, -{{ g.viewBox_height }})">
-                {% for field in fields %}
-                    <rect class="field" id="field{{ field.field_id }}" onclick="setFieldSelected(this)" x="{{ field.lowx }}" y="{{ field.lowy }}" width="{{ field.width }}" height="{{ field.height }}" fill="{{field.fill}}" stroke="black"/>
-                {% endfor %}
-                {% for find in finds %}
-                    <circle class="find" id="find{{ find.find_id }}" onclick="setFindSelected(this)" cx = "{{ find.xcoord }}" cy="{{ find.ycoord }}" r="0.3" fill="{{find.fill}}"/>
-                {% endfor %}
-            </g>
-            <g id="text_numbers">
-                {% for field in fields %}
-                    <text id="text_field{{field.field_id}}" class="field_number" transform="translate(-0.2, 0)" x="{{field.centroidx}}" y="{{g.viewBox_height-field.centroidy}}" font-family="Verdana" font-size="0.5" fill="black">{{field.field_id}}</text>
-                {% endfor %}
-                {% for find in finds %}
-                    <text id="text_find{{find.find_id}}" class="find_number" onclick="setFindSelected(find{{find.find_id}})" transform="translate(-0.15, 0.2)" x="{{find.xcoord}}" y="{{g.viewBox_height-find.ycoord}}" font-family="Verdana" font-size="0.5" fill="white">{{find.find_id}}</text>
-                {% endfor %}
-            </g>
-        </svg>
-    </div>
-    <div class="right-column">
-        <div class="field_table" id="field_table1">
-            <h2>Field Information</h2>
-                <table>
-                    <tr><td>Field Number</td><td>Owner Name</td></tr>
-                    {% for field in fields %}
-                        <tr><td> {{field.field_id}} </td><td> {{field.owner}}</td></tr>
-                    {% endfor %}
-                </table>
-        </div>
+    <div class="content">
+      <h1 id="main_title"> Fields & Finds </h1>
+        <div class="row">
+            <div class="column left">
 
-        <div class="find_table" id="find_table1">
+            </div>
+            <div class="column middle">
+                <svg width="{{ g.width }}" height="{{ g.height }}" viewBox="{{ g.viewBox_custom }}">
+                    <g id="draw_svg" transform="scale(1,-1) translate(0, -{{ g.viewBox_height }})">
+                        {% for field in fields %}
+                            <rect class="field" id="field{{ field.field_id }}" onclick="setFieldSelected(this)" x="{{ field.lowx }}" y="{{ field.lowy }}" width="{{ field.width }}" height="{{ field.height }}" fill="{{field.fill}}" stroke="black"/>
+                        {% endfor %}
+                        {% for find in finds %}
+                            <circle class="find" id="find{{ find.find_id }}" onclick="setFindSelected(this)" cx = "{{ find.xcoord }}" cy="{{ find.ycoord }}" r="0.3" fill="{{find.fill}}"/>
+                        {% endfor %}
+                    </g>
+                    <g id="text_numbers">
+                        {% for field in fields %}
+                            <text id="text_field{{field.field_id}}" class="field_number" transform="translate(-0.2, 0)" x="{{field.centroidx}}" y="{{g.viewBox_height-field.centroidy}}" font-family="Verdana" font-size="0.5" fill="black">{{field.field_id}}</text>
+                        {% endfor %}
+                        {% for find in finds %}
+                            <text id="text_find{{find.find_id}}" class="find_number" onclick="setFindSelected(find{{find.find_id}})" transform="translate(-0.15, 0.2)" x="{{find.xcoord}}" y="{{g.viewBox_height-find.ycoord}}" font-family="Verdana" font-size="0.5" fill="white">{{find.find_id}}</text>
+                        {% endfor %}
+                    </g>
+                </svg>
+            </div>
+            <div class="column right">
+                <div class="field_table" id="field_table1">
+                <h2>Field Information</h2>
+                    <table>
+                        <tr><td>Field Number</td><td>Owner Name</td><td>Lower Left</td><td>Upper Right</td><td>Area</td><td>Crop Number</td></tr>
+                        {% for field in fields %}
+                            <tr class="hidden" id="tablerow_field{{field.field_id}}"><td> {{field.field_id}} </td><td> {{field.owner}}</td><td> {{field.lowx}}, {{field.lowy}} </td><td> {{field.hix}}, {{field.hiy}} </td><td> {{field.area}} </td><td> {{field.crop_id}}</td></tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
         </div>
     </div>
     <script>
     function setFieldSelected(id){
+        var trow_id = "tablerow_".concat(id.id)
+        console.log(trow_id)
+        var trow = document.getElementById(trow_id)
+        console.log(trow)
         if (id.getAttribute("class") == "field_selected") {
             id.setAttribute("class", "field");
+            trow.setAttribute("class", "hidden");
         } else {
             id.setAttribute("class", "field_selected");
+            trow.setAttribute("class", "");
         }
     }
 
