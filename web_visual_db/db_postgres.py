@@ -100,6 +100,8 @@ class MyClass:
         self.period = period
         self.use = use
 
+        self.fill = 'none'
+
     def __repr__(self):
         return f"Class({self.class_type}, {self.name}, {self.period}, {self.use})"
 
@@ -114,6 +116,8 @@ class Crop:
         self.name = name
         self.startseason = startseason
         self.endseason = endseason
+
+        self.fill = 'none'
 
     def __repr__(self):
         return f"Crop({self.crop}, {self.name}, {self.startseason}, {self.endseason})"
@@ -207,6 +211,7 @@ def assign_field_colours(fields, crops):
         for crop in crops:
             if field.crop_id == crop.crop:
                 field.fill = get_field_colour(crop.name)
+                crop.fill = field.fill
             else:
                 continue
 
@@ -216,5 +221,6 @@ def assign_find_colours(finds, classes):
         for cls in classes:
             if find.find_type == cls.class_type:
                 find.fill = get_find_colour(cls.class_type)
+                cls.fill = find.fill
             else:
                 continue

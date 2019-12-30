@@ -12,9 +12,6 @@
       <h1 id="main_title"> Fields & Finds </h1>
         <div class="row">
             <div class="column left">
-
-            </div>
-            <div class="column middle">
                 <svg width="{{ g.width }}" height="{{ g.height }}" viewBox="{{ g.viewBox_custom }}">
                     <g id="draw_svg" transform="scale(1,-1) translate(0, -{{ g.viewBox_height }})">
                         {% for field in fields %}
@@ -36,15 +33,44 @@
             </div>
             <div class="column right">
                 <div class="field_table" id="field_table1">
-                <h2>Field Information</h2>
+                <h2>Field Information</h2><br>
                     <table>
-                        <tr><td>Field Number</td><td>Owner Name</td><td>Lower Left</td><td>Upper Right</td><td>Area</td><td>Crop Number</td></tr>
+                        <tr>
+                            <th class="field_number">Field Number</th>
+                            <th class="owner">Owner Name</th>
+                            <th class="lower_left">Lower Left</th>
+                            <th class="upper_right">Upper Right</th>
+                            <th class="area">Area</th>
+                            <th class="crop_number">Crop Number</th>
+                        </tr>
                         {% for field in fields %}
-                            <tr class="hidden" id="tablerow_field{{field.field_id}}"><td> {{field.field_id}} </td><td> {{field.owner}}</td><td> {{field.lowx}}, {{field.lowy}} </td><td> {{field.hix}}, {{field.hiy}} </td><td> {{field.area}} </td><td> {{field.crop_id}}</td></tr>
+                            <tr class="hidden" id="tablerow_field{{field.field_id}}">
+                                <td> {{field.field_id}} </td>
+                                <td> {{field.owner}}</td>
+                                <td> {{field.lowx}}, {{field.lowy}} </td>
+                                <td> {{field.hix}}, {{field.hiy}} </td>
+                                <td> {{field.area}} </td>
+                                <td> {{field.crop_id}}</td>
+                            </tr>
                         {% endfor %}
-                    </table>
+                    </table><br>
                 </div>
-
+               <div class="find_table" id="find_table1">
+                <h2>Find Information</h2><br>
+                    <table>
+                        <tr>
+                            <th class="find_number">Find Number</th>
+                            <th class="x">X</th>
+                            <th class="y">Y</th>
+                            <th class="find_type">Find Type</th>
+                            <th class="depth">Depth</th>
+                            <th class="field_notes">Field Notes</th>
+                        </tr>
+                        {% for find in finds %}
+                            <tr class="hidden" id="tablerow_find{{find.find_id}}"><td> {{find.find_id}} </td><td> {{find.xcoord}} </td><td> {{find.ycoord}} </td><td> {{find.find_type}} </td><td> {{find.depth}} </td><td>  {{find.field_notes}} </td></tr>
+                        {% endfor %}
+                    </table><br>
+                </div>
             </div>
         </div>
     </div>
@@ -64,10 +90,16 @@
     }
 
     function setFindSelected(id){
+        var trow_id = "tablerow_".concat(id.id)
+        console.log(trow_id)
+        var trow = document.getElementById(trow_id)
+        console.log(trow)
         if (id.getAttribute("class") == "find_selected") {
             id.setAttribute("class", "find");
+            trow.setAttribute("class", "hidden");
         } else {
             id.setAttribute("class", "find_selected");
+            trow.setAttribute("class", "")
         }
     }
 
