@@ -67,7 +67,14 @@
                             <th class="field_notes">Field Notes</th>
                         </tr>
                         {% for find in finds %}
-                            <tr class="hidden" id="tablerow_find{{find.find_id}}"><td> {{find.find_id}} </td><td> {{find.xcoord}} </td><td> {{find.ycoord}} </td><td> {{find.find_type}} </td><td> {{find.depth}} </td><td>  {{find.field_notes}} </td></tr>
+                            <tr class="hidden" id="tablerow_find{{find.find_id}}">
+                                <td> {{find.find_id}} </td>
+                                <td> {{find.xcoord}} </td>
+                                <td> {{find.ycoord}} </td>
+                                <td> {{find.find_type}} </td>
+                                <td> {{find.depth}} </td>
+                                <td> {{find.field_notes}} </td>
+                            </tr>
                         {% endfor %}
                     </table><br>
                 </div>

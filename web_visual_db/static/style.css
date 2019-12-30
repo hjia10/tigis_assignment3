@@ -27,12 +27,10 @@ body {
 
 .right {
     width: 60%;
-    background: gray;
 }
 
 .left {
     width: 40%;
-    background: green;
 }
 
 table {
@@ -55,9 +53,12 @@ th.field_number, th.lower_left, th.upper_right, th.area, th.crop_number {
     width: 60px;
 }
 
+th.find_number, th.x, th.y, th.find_type, th.depth {
+    width: 60px;
+}
 
 tr {
-    height: 15px;
+    height: 25px;
     padding: 5px;
     font-size: 0.8em;
 }
