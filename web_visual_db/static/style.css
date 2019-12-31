@@ -18,6 +18,8 @@ body {
 }
 
 .row {
+
+
 }
 
 .column {
@@ -84,27 +86,35 @@ h2 {
 }
 
 .find {
+    cursor: pointer;
     fill-opacity: 100%;
     stroke: black;
     stroke-width: 0.02;
 }
 
 .find_selected {
+    cursor: pointer;
     fill-opacity: 100%;
     stroke: red;
     stroke-width: 0.1;
 }
 
 .field {
+    cursor: pointer;
     fill-opacity: 40%;
     stroke-width: 0.04;
     stroke: black;
 }
 
 .field_selected {
+    cursor: pointer;
     fill-opacity: 100%;
     stroke-width: 0.1;
     stroke: blue;
+}
+
+.field_number, .find_number {
+    cursor: pointer;
 }
 
 .hidden {

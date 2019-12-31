@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from web_visual_db import db_postgres
 
 app = Flask(__name__)
@@ -23,3 +23,13 @@ graphics_area_for_svg = db_postgres.GraphicsArea(15, 15, -1, 1, 16, 18)
 def home():
     return render_template('index.html', info=author, fields=field_objects, finds=find_objects, classes=my_classes,
                            crops=my_crops, g=graphics_area_for_svg)
+
+
+@app.route("/", methods=['POST'])
+def get_form_data():
+    option1 = request.form['option1']
+    option2 = request.form['option2']
+    option3 = request.form['option3']
+    option4 = request.form['option4']
+    return render_template('index.html', info=author, fields=field_objects, finds=find_objects, classes=my_classes,
+                           crops=my_crops, g=graphics_area_for_svg, option1=option1)

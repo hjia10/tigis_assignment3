@@ -131,13 +131,13 @@ def get_field_colour(field_crop):
     if field_crop == 'TURNIPS':
         return '#A647FF'  # purple
     elif field_crop == 'OIL SEED RAPE':
-        return 'yellow'
+        return '#F3FC30'  # pale yellow
     elif field_crop == 'STRAWBERRIES':
         return '#FD5959'  # orangey red
     elif field_crop == 'PEAS':
         return '#91F708'  # light green
     elif field_crop == 'POTATOES':
-        return 'white'
+        return '#F9C89A'  # lightish orange
     else:
         return 'none'
 
