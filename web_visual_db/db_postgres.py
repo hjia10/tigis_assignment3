@@ -70,6 +70,7 @@ class Find:
         self.find_type = find_type
         self.depth = depth
         self.field_notes = field_notes
+        self.class_name = 'none'
 
         self.fill = get_find_colour(self.find_type)
 
@@ -128,13 +129,13 @@ class Crop:
 
 def get_field_colour(field_crop):
     if field_crop == 'TURNIPS':
-        return 'purple'
+        return '#A647FF'  # purple
     elif field_crop == 'OIL SEED RAPE':
         return 'yellow'
     elif field_crop == 'STRAWBERRIES':
-        return 'red'
+        return '#FD5959'  # orangey red
     elif field_crop == 'PEAS':
-        return 'green'
+        return '#91F708'  # light green
     elif field_crop == 'POTATOES':
         return 'white'
     else:
@@ -143,15 +144,31 @@ def get_field_colour(field_crop):
 
 def get_find_colour(find_class):
     if find_class == 1:
-        return 'blue'
+        return '#9AA8F9'  # light blue
     elif find_class == 2:
-        return 'gray'
+        return '#C8C8C8'  # light grey
     elif find_class == 3:
-        return 'turquoise'
+        return '#ABC349'  # flinty green
     elif find_class == 4:
-        return 'brown'
+        return '#D1BB00'  # mustard colour
     else:
         return 'none'
+
+
+def get_crop_name(crops, crop_id):
+    for crop in crops:
+        if crop.crop == crop_id:
+            return crop.name
+        else:
+            continue
+
+
+def get_class_name(my_class, find_type):
+    for cls in my_class:
+        if cls.class_type == find_type:
+            return cls.name
+        else:
+            continue
 
 
 def print_svg(width, height, viewbox):
@@ -224,3 +241,13 @@ def assign_find_colours(finds, classes):
                 cls.fill = find.fill
             else:
                 continue
+
+
+def assign_crop_names(fields, crops):
+    for field in fields:
+        field.crop_name = get_crop_name(crops, field.crop_id)
+
+
+def assign_class_names(finds, classes):
+    for find in finds:
+        find.class_name = get_class_name(classes, find.find_type)

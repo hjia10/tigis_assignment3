@@ -13,8 +13,10 @@ find_objects = db_postgres.getDBdata('"FIND_ID", "XCOORD", "YCOORD", "TYPE", "DE
 
 db_postgres.assign_field_colours(field_objects, my_crops)
 db_postgres.assign_find_colours(find_objects, my_classes)
+db_postgres.assign_crop_names(field_objects, my_crops)
+db_postgres.assign_class_names(find_objects, my_classes)
 
-graphics_area_for_svg = db_postgres.GraphicsArea(15, 15, 0, 0, 16, 16)
+graphics_area_for_svg = db_postgres.GraphicsArea(15, 15, -1, 1, 16, 18)
 
 
 @app.route("/")

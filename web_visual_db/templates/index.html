@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="content">
-      <h1 id="main_title"> Fields & Finds </h1>
+      <h1 id="main_title"> Archaeological Finds </h1>
         <div class="row">
             <div class="column left">
                 <svg width="{{ g.width }}" height="{{ g.height }}" viewBox="{{ g.viewBox_custom }}">
@@ -18,7 +18,7 @@
                             <rect class="field" id="field{{ field.field_id }}" onclick="setFieldSelected(this)" x="{{ field.lowx }}" y="{{ field.lowy }}" width="{{ field.width }}" height="{{ field.height }}" fill="{{field.fill}}" stroke="black"/>
                         {% endfor %}
                         {% for find in finds %}
-                            <circle class="find" id="find{{ find.find_id }}" onclick="setFindSelected(this)" cx = "{{ find.xcoord }}" cy="{{ find.ycoord }}" r="0.3" fill="{{find.fill}}"/>
+                            <circle class="find" id="find{{ find.find_id }}" onclick="setFindSelected(this)" cx = "{{ find.xcoord }}" cy="{{ find.ycoord }}" r="0.4" fill="{{find.fill}}"/>
                         {% endfor %}
                     </g>
                     <g id="text_numbers">
@@ -32,16 +32,20 @@
                 </svg>
             </div>
             <div class="column right">
+                <br>
+                <br>
                 <div class="field_table" id="field_table1">
-                <h2>Field Information</h2><br>
+                <h2>Field Information</h2>
                     <table>
                         <tr>
                             <th class="field_number">Field Number</th>
-                            <th class="owner">Owner Name</th>
-                            <th class="lower_left">Lower Left</th>
-                            <th class="upper_right">Upper Right</th>
+                            <th class="owner">Owner</th>
+                            <th class="lower_left">Lower Left Coordinate</th>
+                            <th class="upper_right">Upper Right Coordinate</th>
                             <th class="area">Area</th>
                             <th class="crop_number">Crop Number</th>
+                            <th class="crop_name">Crop Name</th>
+
                         </tr>
                         {% for field in fields %}
                             <tr class="hidden" id="tablerow_field{{field.field_id}}">
@@ -51,18 +55,20 @@
                                 <td> {{field.hix}}, {{field.hiy}} </td>
                                 <td> {{field.area}} </td>
                                 <td> {{field.crop_id}}</td>
+                                <td style="background-color:{{field.fill}}"> {{field.crop_name}}</td>
                             </tr>
                         {% endfor %}
                     </table><br>
                 </div>
                <div class="find_table" id="find_table1">
-                <h2>Find Information</h2><br>
+                <h2>Find Information</h2>
                     <table>
                         <tr>
                             <th class="find_number">Find Number</th>
                             <th class="x">X</th>
                             <th class="y">Y</th>
-                            <th class="find_type">Find Type</th>
+                            <th class="find_type">Type</th>
+                            <th class="find_class_name">Class</th>
                             <th class="depth">Depth</th>
                             <th class="field_notes">Field Notes</th>
                         </tr>
@@ -72,6 +78,7 @@
                                 <td> {{find.xcoord}} </td>
                                 <td> {{find.ycoord}} </td>
                                 <td> {{find.find_type}} </td>
+                                <td style="background-color:{{find.fill}}"> {{find.class_name}} </td>
                                 <td> {{find.depth}} </td>
                                 <td> {{find.field_notes}} </td>
                             </tr>

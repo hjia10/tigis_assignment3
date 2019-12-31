@@ -10,7 +10,6 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    height 100vh;
 }
 
 .content {
@@ -49,8 +48,16 @@ th {
     color: white;
 }
 
-th.field_number, th.lower_left, th.upper_right, th.area, th.crop_number {
+th.field_number, th.area, th.crop_number {
     width: 60px;
+}
+
+th.lower_left, th.upper_right {
+    width: 100px;
+}
+
+th.crop_name, th.find_class_name {
+    width: 120px;
 }
 
 th.find_number, th.x, th.y, th.find_type, th.depth {
@@ -66,27 +73,37 @@ tr {
 tr:hover {background-color: #f5f5f5;}
 
 h1 {
-    margin-bottom: 3rem;
-    color: red;
+    margin-bottom: 0.5rem;
+    color: black;
+}
+
+h2 {
+    margin-bottom: 0px;
+    color: black;
+    opacity: 50%;
 }
 
 .find {
+    fill-opacity: 100%;
     stroke: black;
     stroke-width: 0.02;
 }
 
 .find_selected {
+    fill-opacity: 100%;
     stroke: red;
-    stroke-width: 0.08;
+    stroke-width: 0.1;
 }
 
 .field {
+    fill-opacity: 40%;
     stroke-width: 0.04;
     stroke: black;
 }
 
 .field_selected {
-    stroke-width: 0.08;
+    fill-opacity: 100%;
+    stroke-width: 0.1;
     stroke: blue;
 }
 
