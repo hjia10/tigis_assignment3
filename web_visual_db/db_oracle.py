@@ -181,7 +181,7 @@ def getDBdata(table_name, order_column):
     c = conn.cursor()
     c.execute(f"SELECT * FROM {table_name} ORDER BY {order_column}")
 
-    if table_name == '"MY_FIELDS"':
+    if table_name == "MY_FIELDS":
         fields_list = []
         for row in c:
             (a, b, c, d, e, f, g, h) = row
@@ -191,7 +191,7 @@ def getDBdata(table_name, order_column):
             fields_list.append(field_name)
             results = fields_list
 
-    elif table_name == '"MY_FINDS"':
+    elif table_name == "MY_FINDS":
         finds_list = []
         for row in c:
             (a, b, c, d, e, f) = row
@@ -201,7 +201,7 @@ def getDBdata(table_name, order_column):
             finds_list.append(find_name)
             results = finds_list
 
-    elif table_name == '"MY_CLASS"':
+    elif table_name == "MY_CLASS":
         classes_list = []
         for row in c:
             (a, b, c, d) = row
@@ -209,7 +209,7 @@ def getDBdata(table_name, order_column):
             classes_list.append(my_class)
             results = classes_list
 
-    elif table_name == '"MY_CROPS"':
+    elif table_name == "MY_CROPS":
         crops_list = []
         for row in c:
             (a, b, c, d) = row
