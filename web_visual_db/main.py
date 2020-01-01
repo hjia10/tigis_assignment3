@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 from web_visual_db import db_oracle
-import cgitb
-cgitb.enable(format='text')
 from jinja2 import Environment, FileSystemLoader
+import cgitb
+
+cgitb.enable(format='text')
 
 
 my_classes = db_oracle.getDBdata('"TYPE", "NAME", "PERIOD", "USE"', '"MY_CLASS"', '"TYPE"')
