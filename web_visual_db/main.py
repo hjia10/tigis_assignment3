@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#! /usr/bin/env python3
 
 from web_visual_db import db_oracle
 from jinja2 import Environment, FileSystemLoader
@@ -30,28 +30,6 @@ graphics_area_for_svg = db_oracle.GraphicsArea(15, 15, -1, 1, 16, 18)
 
 
 def render_html():
-    env = Environment(loader=FileSystemLoader('.'))
+    env = Environment(loader=FileSystemLoader('/web_visual_db/'))
     temp = env.get_template('/web_visual_db/index.html')
     print(temp.render(fields=field_objects, finds=find_objects, classes=my_classes, crops=my_crops, g=graphics_area_for_svg))
-
-
-
-
-'''
-
-@app.route("/")
-def home():
-    return render_template('index.html', info=author, fields=field_objects, finds=find_objects, classes=my_classes,
-                           crops=my_crops, g=graphics_area_for_svg)
-
-
-@app.route("/", methods=['POST'])
-def get_form_data():
-    option1 = request.form['option1']
-    option2 = request.form['option2']
-    option3 = request.form['option3']
-    option4 = request.form['option4']
-    return render_template('index.html', info=author, fields=field_objects, finds=find_objects, classes=my_classes,
-                           crops=my_crops, g=graphics_area_for_svg, option1=option1)
-
-'''
