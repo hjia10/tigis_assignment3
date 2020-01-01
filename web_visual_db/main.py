@@ -264,11 +264,11 @@ def render_html():
     print(temp.render(fields=field_objects, finds=find_objects, classes=my_classes, crops=my_crops, g=graphics_area_for_svg))
 
 
-my_classes = db_oracle.getDBdata("MY_CLASS", "TYPE")
-my_crops = db_oracle.getDBdata("MY_CROPS", "CROP")
+my_classes = getDBdata("MY_CLASS", "TYPE")
+my_crops = getDBdata("MY_CROPS", "CROP")
 
-field_objects = db_oracle.getDBdata("MY_FIELDS", "FIELD_ID")
-find_objects = db_oracle.getDBdata("MY_FINDS", "FIND_ID")
+field_objects = getDBdata("MY_FIELDS", "FIELD_ID")
+find_objects = getDBdata("MY_FINDS", "FIND_ID")
 
 assign_field_colours(field_objects, my_crops)
 assign_find_colours(find_objects, my_classes)
