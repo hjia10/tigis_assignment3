@@ -261,7 +261,7 @@ def assign_class_names(finds, classes):
 
 def render_html():
     env = Environment(loader=FileSystemLoader('.'))
-    temp = env.get_template('/web_visual_db/index.html')
+    temp = env.get_template('index.html')
     print(temp.render(fields=field_objects, finds=find_objects, classes=my_classes, crops=my_crops, g=graphics_area_for_svg))
 
 
