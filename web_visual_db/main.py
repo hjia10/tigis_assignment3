@@ -30,3 +30,7 @@ def render_html():
     env = Environment(loader=FileSystemLoader('.'))
     temp = env.get_template('/web_visual_db/index.html')
     print(temp.render(fields=field_objects, finds=find_objects, classes=my_classes, crops=my_crops, g=graphics_area_for_svg))
+
+
+if __name__ == '__main__':
+    render_html()
