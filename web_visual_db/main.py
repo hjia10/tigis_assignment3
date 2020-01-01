@@ -15,6 +15,7 @@ find_objects = db_oracle.getDBdata('"FIND_ID", "XCOORD", "YCOORD", "TYPE", "DEPT
 '''
 
 my_classes = db_oracle.getDBdata("MY_CLASS", "TYPE")
+print(my_classes)
 my_crops = db_oracle.getDBdata("MY_CROPS", "CROP")
 
 field_objects = db_oracle.getDBdata("MY_FIELDS", "FIELD_ID")
@@ -54,6 +55,3 @@ def get_form_data():
                            crops=my_crops, g=graphics_area_for_svg, option1=option1)
 
 '''
-
-if __name__ == '__main__':
-    render_html()
