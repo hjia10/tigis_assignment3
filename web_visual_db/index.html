@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="/static/style.css">
+      <title>Database Visualiser</title>
+  </head>
+  <body>
+    <div class="content">
+      <h1 id="main_title"> Archaeological Finds </h1>
+        <div class="row" style="background-color:gray;">
+            <p>Select items matching the following criteria:</p>
+            <form name="select_form" action="" method="POST">
+                <select name="option1">
+                        <option selected disabled>Select by Field Number...</option>
+                    {% for field in fields %}
+                        <option value="{field.field_id}">Field {{ field.field_id }}</option>
+                    {% endfor %}
+                </select>
+                <select name="option2">
+                        <option selected disabled>Select by Field Owner...</option>
+                    {% for field in fields %}
+                        <option value="{field.owner}">{{ field.owner }}</option>
+                    {% endfor %}
+                </select>
+                <select name="option3">
+                        <option selected disabled>Select by Crop Type...</option>
+                    {% for crop in crops %}
+                        <option value="{crop.name}">{{ crop.name }}</option>
+                    {% endfor %}
+                </select>
+                <select name="option4">
+                        <option selected disabled>Select by Find Class...</option>
+                    {% for cls in classes %}
+                        <option value="{cls.name}">{{ cls.name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="submit">
+            </form>
+        </div>
+
+
+        <div class="row">
+            <div class="column left">
+                <svg width="{{ g.width }}" height="{{ g.height }}" viewBox="{{ g.viewBox_custom }}">
+                    <g id="draw_svg" transform="scale(1,-1) translate(0, -{{ g.viewBox_height }})">
+                        {% for field in fields %}
+                            <rect class="field" id="field{{ field.field_id }}" onclick="setFieldSelected(this)" x="{{ field.lowx }}" y="{{ field.lowy }}" width="{{ field.width }}" height="{{ field.height }}" fill="{{field.fill}}" stroke="black"/>
+                        {% endfor %}
+                        {% for find in finds %}
+                            <circle class="find" id="find{{ find.find_id }}" onclick="setFindSelected(this)" cx = "{{ find.xcoord }}" cy="{{ find.ycoord }}" r="0.4" fill="{{find.fill}}"/>
+                        {% endfor %}
+                    </g>
+                    <g id="text_numbers">
+                        {% for field in fields %}
+                            <text id="text_field{{field.field_id}}" class="field_number" transform="translate(-0.2, 0)" x="{{field.centroidx}}" y="{{g.viewBox_height-field.centroidy}}" font-family="Verdana" font-size="0.5" fill="black">{{field.field_id}}</text>
+                        {% endfor %}
+                        {% for find in finds %}
+                            <text id="text_find{{find.find_id}}" class="find_number" onclick="setFindSelected(find{{find.find_id}})" transform="translate(-0.15, 0.2)" x="{{find.xcoord}}" y="{{g.viewBox_height-find.ycoord}}" font-family="Verdana" font-size="0.5" fill="white">{{find.find_id}}</text>
+                        {% endfor %}
+                    </g>
+                </svg>
+                <form name="select_form" action="." method="post">
+                    <label>Name</label>
+                    <input type="text" name="name">
+                    <label>Age</label>
+                    <input type="text" name="age">
+                    <input type="submit" value="submit">
+                </form>
+            </div>
+            <div class="column right">
+                <br>
+                <br>
+                <div class="field_table" id="field_table1">
+                        <h2>Field Information</h2>
+                        <table>
+                            <tr>
+                                <th class="field_number">Field Number</th>
+                                <th class="owner">Owner</th>
+                                <th class="lower_left">Lower Left Coordinate</th>
+                                <th class="upper_right">Upper Right Coordinate</th>
+                                <th class="area">Area</th>
+                                <th class="crop_number">Crop Number</th>
+                                <th class="crop_name">Crop Name</th>
+
+                            </tr>
+                            {% for field in fields %}
+                                <tr class="hidden" id="tablerow_field{{field.field_id}}">
+                                    <td> {{field.field_id}} </td>
+                                    <td> {{field.owner}}</td>
+                                    <td> {{field.lowx}}, {{field.lowy}} </td>
+                                    <td> {{field.hix}}, {{field.hiy}} </td>
+                                    <td> {{field.area}} </td>
+                                    <td> {{field.crop_id}}</td>
+                                    <td style="background-color:{{field.fill}}"> {{field.crop_name}}</td>
+                                </tr>
+                            {% endfor %}
+                        </table><br>
+                </div>
+               <div class="find_table" id="find_table1">
+                <h2>Find Information</h2>
+                    <table>
+                        <tr>
+                            <th class="find_number">Find Number</th>
+                            <th class="x">X</th>
+                            <th class="y">Y</th>
+                            <th class="find_type">Type</th>
+                            <th class="find_class_name">Class</th>
+                            <th class="depth">Depth</th>
+                            <th class="field_notes">Field Notes</th>
+                        </tr>
+                        {% for find in finds %}
+                            <tr class="hidden" id="tablerow_find{{find.find_id}}">
+                                <td> {{find.find_id}} </td>
+                                <td> {{find.xcoord}} </td>
+                                <td> {{find.ycoord}} </td>
+                                <td> {{find.find_type}} </td>
+                                <td style="background-color:{{find.fill}}"> {{find.class_name}} </td>
+                                <td> {{find.depth}} </td>
+                                <td> {{find.field_notes}} </td>
+                            </tr>
+                        {% endfor %}
+                    </table><br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    function setFieldSelected(id){
+        var trow_id = "tablerow_".concat(id.id)
+        console.log(trow_id)
+        var trow = document.getElementById(trow_id)
+        console.log(trow)
+        if (id.getAttribute("class") == "field_selected") {
+            id.setAttribute("class", "field");
+            trow.setAttribute("class", "hidden");
+        } else {
+            id.setAttribute("class", "field_selected");
+            trow.setAttribute("class", "");
+        }
+    }
+
+    function setFindSelected(id){
+        var trow_id = "tablerow_".concat(id.id)
+        console.log(trow_id)
+        var trow = document.getElementById(trow_id)
+        console.log(trow)
+        if (id.getAttribute("class") == "find_selected") {
+            id.setAttribute("class", "find");
+            trow.setAttribute("class", "hidden");
+        } else {
+            id.setAttribute("class", "find_selected");
+            trow.setAttribute("class", "")
+        }
+    }
+
+    </script>
+
+  </body>
+</html>
