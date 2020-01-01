@@ -7,7 +7,6 @@ import cgitb
 cgitb.enable(format='text')
 
 my_classes = db_oracle.getDBdata("MY_CLASS", "TYPE")
-print(my_classes)
 my_crops = db_oracle.getDBdata("MY_CROPS", "CROP")
 
 field_objects = db_oracle.getDBdata("MY_FIELDS", "FIELD_ID")
@@ -19,6 +18,12 @@ db_oracle.assign_crop_names(field_objects, my_crops)
 db_oracle.assign_class_names(find_objects, my_classes)
 
 graphics_area_for_svg = db_oracle.GraphicsArea(15, 15, -1, 1, 16, 18)
+
+print(my_classes)
+print(my_crops)
+print(field_objects)
+print(find_objects)
+print(graphics_area_for_svg)
 
 
 def render_html():
