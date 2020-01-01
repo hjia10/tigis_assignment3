@@ -175,11 +175,11 @@ def print_svg(width, height, viewbox):
     return f'<svg width="{width}" height="{height}" viewBox="{viewbox}">'
 
 
-def getDBdata(select_term, table_name, order_column):
+def getDBdata(table_name, order_column):
     results = []
     conn = cx_Oracle.connect("student/train@geoslearn")
     c = conn.cursor()
-    c.execute(f"SELECT {select_term} FROM {table_name} ORDER BY {order_column}")
+    c.execute(f"SELECT * FROM {table_name} ORDER BY {order_column}")
 
     if table_name == '"MY_FIELDS"':
         fields_list = []
