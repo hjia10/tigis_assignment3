@@ -30,7 +30,7 @@ graphics_area_for_svg = db_oracle.GraphicsArea(15, 15, -1, 1, 16, 18)
 
 def render_html():
     env = Environment(loader=FileSystemLoader('.'))
-    temp = env.get_template('index.html')
+    temp = env.get_template('/web_visual_db/index.html')
     print(temp.render(fields=field_objects, finds=find_objects, classes=my_classes, crops=my_crops, g=graphics_area_for_svg))
 
 
