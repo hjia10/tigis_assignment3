@@ -14,11 +14,11 @@ field_objects = db_oracle.getDBdata('"FIELD_ID", "LOWX", "LOWY", "HIX", "HIY", "
 find_objects = db_oracle.getDBdata('"FIND_ID", "XCOORD", "YCOORD", "TYPE", "DEPTH", "FIELD_NOTES"', '"MY_FINDS"', '"FIND_ID"')
 '''
 
-my_classes = db_oracle.getDBdata("TYPE, NAME, PERIOD, USE", "MY_CLASS", "TYPE")
-my_crops = db_oracle.getDBdata("CROP, NAME, STARTSEASON, ENDSEASON", "MY_CROPS", "CROP")
+my_classes = db_oracle.getDBdata("MY_CLASS", "TYPE")
+my_crops = db_oracle.getDBdata("MY_CROPS", "CROP")
 
-field_objects = db_oracle.getDBdata("FIELD_ID, LOWX, LOWY, HIX, HIY, AREA, OWNER, CROP", "MY_FIELDS", "FIELD_ID")
-find_objects = db_oracle.getDBdata("FIND_ID, XCOORD, YCOORD, TYPE, DEPTH, FIELD_NOTES", "MY_FINDS", "FIND_ID")
+field_objects = db_oracle.getDBdata("MY_FIELDS", "FIELD_ID")
+find_objects = db_oracle.getDBdata("MY_FINDS", "FIND_ID")
 
 db_oracle.assign_field_colours(field_objects, my_crops)
 db_oracle.assign_find_colours(find_objects, my_classes)
